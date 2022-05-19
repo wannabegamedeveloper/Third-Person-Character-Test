@@ -19,7 +19,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'LeftLowerLeg' not found\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -27,7 +28,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -56,7 +57,7 @@ ModelImporter:
     weldVertices: 1
     bakeAxisConversion: 0
     preserveHierarchy: 0
-    skinWeightsMode: 0
+    skinWeightsMode: 1
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
@@ -83,7 +84,177 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: idle(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: idle(Clone)
+      position: {x: -0, y: 1.1531239, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 45.633827, y: 45.633827, z: 45.633827}
+    - name: left_hip
+      parentName: Armature
+      position: {x: -0.0067781997, y: 0, z: -0.02964572}
+      rotation: {x: 0.5694419, y: 0.41920885, z: -0.4192088, w: 0.5694418}
+      scale: {x: 1, y: 1, z: 1}
+    - name: waist
+      parentName: left_hip
+      position: {x: 5.3290704e-17, y: 0.0070986315, z: -9.769963e-16}
+      rotation: {x: -0.000000081892615, y: -0.00000009729443, z: 0.59285074, w: 0.8053124}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: chest
+      parentName: waist
+      position: {x: 1.5031936e-24, y: 0.011163661, z: -1.9686898e-23}
+      rotation: {x: 1.7880377e-22, y: -3.5527137e-15, z: -7.12991e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: head
+      parentName: chest
+      position: {x: -0, y: 0.016373372, z: -7.9740206e-24}
+      rotation: {x: 0.04819919, y: -0.22738747, z: 0.011269279, w: 0.9725455}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: head_end
+      parentName: head
+      position: {x: -0, y: 0.01, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_forearm1
+      parentName: chest
+      position: {x: -0, y: 0.016373372, z: -7.9740206e-24}
+      rotation: {x: 0.69465256, y: -0.2942385, z: -0.53248835, w: -0.38384596}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1}
+    - name: left_forearm2
+      parentName: left_forearm1
+      position: {x: -1.8573869e-10, y: 0.007750359, z: -1.4059509e-11}
+      rotation: {x: 0.17523842, y: -0.000000060731686, z: 0.000000067248514, w: 0.98452604}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_upper_arm
+      parentName: left_forearm2
+      position: {x: -2.8309443e-11, y: 0.0027124626, z: -1.8626451e-11}
+      rotation: {x: -0.40517473, y: -0.0011647248, z: 0.013243239, w: 0.9141426}
+      scale: {x: 1, y: 1.0000002, z: 1}
+    - name: left_lower_arm
+      parentName: left_upper_arm
+      position: {x: 2.0489097e-10, y: 0.009608724, z: -0.000000001117587}
+      rotation: {x: -0.049709782, y: 0.00000003450159, z: 0.0000000044292583, w: 0.9987637}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: left_lower_arm_end
+      parentName: left_lower_arm
+      position: {x: -0, y: 0.011102609, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_forearm1
+      parentName: chest
+      position: {x: -0, y: 0.016373372, z: -7.9740206e-24}
+      rotation: {x: 0.53486514, y: 0.37818053, z: 0.697753, w: -0.28989568}
+      scale: {x: 0.9999995, y: 0.9999997, z: 0.9999999}
+    - name: right_forearm2
+      parentName: right_forearm1
+      position: {x: 3.487183e-10, y: 0.0073839985, z: -9.336951e-11}
+      rotation: {x: 0.1657784, y: 0.00000010272522, z: -0.000000009314422, w: 0.9861631}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: right_upper_arm
+      parentName: right_forearm2
+      position: {x: 9.5660896e-11, y: 0.0034873034, z: -5.3085386e-10}
+      rotation: {x: -0.4169984, y: -0.01240363, z: 0.0053247544, w: 0.90880704}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: right_lower_arm
+      parentName: right_upper_arm
+      position: {x: -2.7939676e-10, y: 0.009707523, z: 4.4703483e-10}
+      rotation: {x: -0.080875695, y: 0.000000008000659, z: -0.0000000039711296, w: 0.9967242}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: right_lower_arm_end
+      parentName: right_lower_arm
+      position: {x: -0, y: 0.010049037, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: left_leg
+      parentName: Armature
+      position: {x: -0.0067781997, y: 0, z: -0.02964572}
+      rotation: {x: -0.70438063, y: 0.062031716, z: 0.06203159, w: 0.70438063}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: left_leg_end
+      parentName: left_leg
+      position: {x: -0, y: 0.008881569, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_hip
+      parentName: Armature
+      position: {x: 0.0067781997, y: 0, z: -0.02964572}
+      rotation: {x: 0.5694419, y: -0.41920885, z: 0.4192088, w: 0.5694418}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_hip_end
+      parentName: right_hip
+      position: {x: -0, y: 0.007098631, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_leg
+      parentName: Armature
+      position: {x: 0.0067781997, y: 0, z: -0.02964572}
+      rotation: {x: -0.70438063, y: -0.062031716, z: -0.06203159, w: 0.70438063}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: right_leg_end
+      parentName: right_leg
+      position: {x: -0, y: 0.008881569, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature.001
+      parentName: idle(Clone)
+      position: {x: -0, y: 3.08126, z: 0.0000000015436475}
+      rotation: {x: -0.7475213, y: 0, z: -0, w: 0.66423786}
+      scale: {x: 40.6386, y: 40.638603, z: 40.638603}
+    - name: Bone
+      parentName: Armature.001
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.001
+      parentName: Bone
+      position: {x: -0, y: 0.01, z: 0}
+      rotation: {x: -0.18892598, y: -8.3300774e-17, z: -8.330078e-17, w: 0.98199135}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Bone.002
+      parentName: Bone.001
+      position: {x: 6.617445e-26, y: 0.007958244, z: 0}
+      rotation: {x: -0.09710348, y: 1.7343982e-18, z: 2.295959e-17, w: 0.9952743}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Bone.003
+      parentName: Bone.002
+      position: {x: 6.617445e-26, y: 0.007761264, z: 0}
+      rotation: {x: -0.051281292, y: 8.438271e-19, z: 1.1992518e-17, w: 0.9986843}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.003_end
+      parentName: Bone.003
+      position: {x: -0, y: 0.004944104, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cube
+      parentName: idle(Clone)
+      position: {x: -0, y: 2.053985, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 147.60632, y: 147.60632, z: 129.9654}
+    - name: Cube.001
+      parentName: idle(Clone)
+      position: {x: -0, y: 0.00000011920929, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 99.999985, y: 55.45845, z: 99.999985}
+    - name: Cube.002
+      parentName: idle(Clone)
+      position: {x: -0, y: 3.08126, z: 0.000000026044468}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 5.810881, y: 5.8108797, z: 5.8108797}
+    - name: Cube.003
+      parentName: idle(Clone)
+      position: {x: -0, y: 1.7851878, z: 1.1754502}
+      rotation: {x: -0.6313855, y: 0, z: -0, w: 0.7754692}
+      scale: {x: 10.175715, y: 10.1757145, z: 10.1757145}
+    - name: Sphere
+      parentName: idle(Clone)
+      position: {x: -0, y: 4.153999, z: -0.5431461}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 8.823263, y: 8.823261, z: 8.823261}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -94,13 +265,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
