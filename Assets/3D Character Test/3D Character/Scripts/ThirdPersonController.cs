@@ -1,15 +1,15 @@
-using System;
 using UnityEngine;
 
 public class ThirdPersonController : MonoBehaviour
 {
     [SerializeField] private float speed;
 
-    private Rigidbody rb;
+    private Vector3 _movement;
+    private CharacterController _controller;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        _controller = GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -17,8 +17,9 @@ public class ThirdPersonController : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveX, 0f, moveY);
-
-        rb.velocity = movement * speed * Time.deltaTime * 10f;
+        _movement = new Vector3(moveX, 0f, moveY);
+        Vector3 localMovement = transform.TransformDirection(_movement);
+        
+        _controller.Move(localMovement * speed * Time.deltaTime);
     }
 }
