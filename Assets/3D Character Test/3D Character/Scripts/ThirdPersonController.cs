@@ -11,9 +11,11 @@ public class ThirdPersonController : MonoBehaviour
     private Vector3 _movement;
     private CharacterController _controller;
     private Animator _characterAnimator;
-    private float _lerpingSpeed;
+    private float _lerpingSpeedX;
+    private float _lerpingSpeedY;
     private static readonly int X = Animator.StringToHash("X");
-    
+    private static readonly int Y = Animator.StringToHash("Y");
+
     private void Start()
     {
         _controller = GetComponent<CharacterController>();
@@ -25,24 +27,22 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Update()
     {
-        Movement();
-        Animate();
+        Animate(Movement());
     }
 
-    private void Animate()
+    private void Animate(Vector2 axis)
     {
-        Vector3 characterVelocity = _controller.velocity;
-        float normalizedVelocity = Vector3.Magnitude(Vector3.Normalize(characterVelocity));
+        _lerpingSpeedX = Mathf.Lerp(_lerpingSpeedX, axis.x, animationTransitionTime * Time.deltaTime);
+        _lerpingSpeedY = Mathf.Lerp(_lerpingSpeedY, axis.y, animationTransitionTime * Time.deltaTime);
 
-        _lerpingSpeed = Mathf.Lerp(_lerpingSpeed, normalizedVelocity, animationTransitionTime * Time.deltaTime);
-        
-        _characterAnimator.SetFloat(X, _lerpingSpeed);
+        _characterAnimator.SetFloat(X, _lerpingSpeedX);
+        _characterAnimator.SetFloat(Y, _lerpingSpeedY);
     }
 
-    private void Movement()
+    private Vector2 Movement()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
 
         if (Mathf.Abs(moveX) > 0f || Mathf.Abs(moveY) > 0f)
         {
@@ -50,11 +50,11 @@ public class ThirdPersonController : MonoBehaviour
             
             float mouseY = Input.GetAxis("Mouse X");
             
-            if (mouseY > 3f) return;
+            if (mouseY > 3f) return new Vector2(moveX, moveY);
             
             constraint.localRotation =
                 Quaternion.Lerp(constraint.localRotation, Quaternion.Euler(0f, 0f, mouseY * -bendAmount),
-                    10f * Time.deltaTime);
+                    3f * Time.deltaTime);
         }
         else
             constraint.localRotation = Quaternion.identity;
@@ -63,6 +63,8 @@ public class ThirdPersonController : MonoBehaviour
         Vector3 localMovement = transform.TransformDirection(_movement);
         
         _controller.Move(localMovement * (speed * Time.deltaTime));
+        
+        return new Vector2(moveX, moveY);
     }
     
 }

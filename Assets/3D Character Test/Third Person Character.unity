@@ -719,7 +719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  animationTransitionTime: 10
+  animationTransitionTime: 20
   constraint: {fileID: 1557980895}
   bendAmount: 10
   followPoint: {fileID: 613907071}
@@ -3959,7 +3959,7 @@ Transform:
   - {fileID: 5632799574789150518}
   m_Father: {fileID: 543450652877457033}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -89.98021, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -180}
 --- !u!4 &9002254762836703275
 Transform:
   m_ObjectHideFlags: 0
