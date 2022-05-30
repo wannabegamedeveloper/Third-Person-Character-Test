@@ -20,7 +20,7 @@ AvatarMask:
   - m_Path: Armature/left_hip/waist/chest
     m_Weight: 1
   - m_Path: Armature/left_hip/waist/chest/head
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/left_hip/waist/chest/head/head_end
     m_Weight: 0
   - m_Path: Armature/left_hip/waist/chest/left_forearm1
@@ -28,15 +28,15 @@ AvatarMask:
   - m_Path: Armature/left_hip/waist/chest/left_forearm1/left_forearm2
     m_Weight: 1
   - m_Path: Armature/left_hip/waist/chest/left_forearm1/left_forearm2/left_upper_arm
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/left_hip/waist/chest/left_forearm1/left_forearm2/left_upper_arm/left_lower_arm
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/left_hip/waist/chest/left_forearm1/left_forearm2/left_upper_arm/left_lower_arm/left_lower_arm_end
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/left_hip/waist/chest/right_forearm1
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/left_hip/waist/chest/right_forearm1/right_forearm2
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/left_hip/waist/chest/right_forearm1/right_forearm2/right_upper_arm
     m_Weight: 0
   - m_Path: Armature/left_hip/waist/chest/right_forearm1/right_forearm2/right_upper_arm/right_lower_arm
