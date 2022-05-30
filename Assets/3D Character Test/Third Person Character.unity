@@ -2593,11 +2593,11 @@ GameObject:
   - component: {fileID: 543450652877457033}
   - component: {fileID: 856318314}
   - component: {fileID: 856318308}
+  - component: {fileID: 919132148936956983}
   - component: {fileID: 856318316}
   - component: {fileID: 919132148936956980}
   - component: {fileID: 919132148936956982}
   - component: {fileID: 919132148936956981}
-  - component: {fileID: 919132148936956983}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -2715,8 +2715,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7feb3ec8868e8c4ea19604bba8445b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallMultiplier: 3
-  lowJumpMultiplier: 2
+  fallMultiplier: 4
+  lowJumpMultiplier: 3
 --- !u!4 &1160617567268875398
 Transform:
   m_ObjectHideFlags: 0
