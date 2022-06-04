@@ -17,9 +17,8 @@ public class CameraMovement : MonoBehaviour
     {
         var position = _transform.position;
         var pointPosition = transform;
-        Vector3 pos = new Vector3(position.x, pointPosition.position.y, position.z);
 
-        pointPosition.position = pos;
+        pointPosition.position = position;
         
         float mouseX = Input.GetAxis("Mouse Y");
         float mouseY = Input.GetAxis("Mouse X");
