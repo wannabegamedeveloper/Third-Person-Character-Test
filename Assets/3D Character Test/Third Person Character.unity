@@ -501,6 +501,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point: {fileID: 1292446114}
   player: {fileID: 543450652877457033}
+  minCamAngle: -0.4
+  maxCamAngle: 0.5
 --- !u!1 &731458545
 GameObject:
   m_ObjectHideFlags: 0

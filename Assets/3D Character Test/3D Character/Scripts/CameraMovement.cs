@@ -5,7 +5,9 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private Transform point;
     [SerializeField] private Transform player;
-
+    [SerializeField] private float minCamAngle;
+    [SerializeField] private float maxCamAngle;
+    
     private Transform _transform;
     
     private void Start()
@@ -15,7 +17,9 @@ public class CameraMovement : MonoBehaviour
 
     private void ClampCam()
     {
-        
+        var rot = point.rotation;
+        rot.x = Mathf.Clamp(rot.x, minCamAngle, maxCamAngle);
+        point.rotation = rot;
     }
 
     private void Update()
@@ -27,8 +31,10 @@ public class CameraMovement : MonoBehaviour
         
         float mouseX = Input.GetAxis("Mouse Y");
         float mouseY = Input.GetAxis("Mouse X");
-        
+
         point.Rotate(new Vector3(-mouseX, 0f, 0f));
         transform.Rotate(new Vector3(0f, mouseY, 0f));
+        
+        ClampCam();
     }
 }
