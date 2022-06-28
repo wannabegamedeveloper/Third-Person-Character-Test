@@ -13,12 +13,17 @@ public class CameraMovement : MonoBehaviour
         _transform = player;
     }
 
+    private void ClampCam()
+    {
+        
+    }
+
     private void Update()
     {
         var position = _transform.position;
         var pointPosition = transform;
 
-        pointPosition.position = position;
+        pointPosition.position = Vector3.Lerp(pointPosition.position, position, 100f * Time.deltaTime);
         
         float mouseX = Input.GetAxis("Mouse Y");
         float mouseY = Input.GetAxis("Mouse X");
