@@ -15,26 +15,17 @@ public class CameraMovement : MonoBehaviour
         _transform = player;
     }
 
-    private void ClampCam()
-    {
-        var rot = point.rotation;
-        rot.x = Mathf.Clamp(rot.x, minCamAngle, maxCamAngle);
-        point.rotation = rot;
-    }
-
     private void Update()
     {
         var position = _transform.position;
         var pointPosition = transform;
 
         pointPosition.position = Vector3.Lerp(pointPosition.position, position, 100f * Time.deltaTime);
-        
+
         float mouseX = Input.GetAxis("Mouse Y");
         float mouseY = Input.GetAxis("Mouse X");
 
         point.Rotate(new Vector3(-mouseX, 0f, 0f));
         transform.Rotate(new Vector3(0f, mouseY, 0f));
-        
-        ClampCam();
     }
 }
