@@ -12,6 +12,7 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private Transform foot;
     [SerializeField] private float footRadius;
     [SerializeField] private bool isGrounded;
+    [SerializeField] private AudioSource fall;
     
     private Vector3 _movement;
     private Rigidbody _rb;
@@ -109,6 +110,7 @@ public class ThirdPersonController : MonoBehaviour
         isGrounded = true;
         _doubleJumped = false;
         _characterAnimator.SetTrigger(JumpEnd);
+        fall.Play();
         if (Physics.SphereCast(foot.position, footRadius, -transform.up, out RaycastHit hit, 10))
             isGrounded = true;
     }
