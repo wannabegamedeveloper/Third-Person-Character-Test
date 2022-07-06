@@ -998,7 +998,7 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.47066307
+        time: 0.15296268
         value: 1
         inSlope: 0.0019865339
         outSlope: 0.0019865339
