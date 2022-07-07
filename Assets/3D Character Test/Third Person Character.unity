@@ -876,8 +876,6 @@ MonoBehaviour:
   followPoint: {fileID: 613907071}
   jumpForce: 10
   doubleJumpForce: 25
-  foot: {fileID: 920992620}
-  footRadius: 4
   isGrounded: 0
   running: {fileID: 970366450}
   fall: {fileID: 970366451}
@@ -885,7 +883,6 @@ MonoBehaviour:
   cinemachineVirtualCamera: {fileID: 2141278115}
   noiseIntensity: 0
   noiseFactor: 20
-  fov: 60
 --- !u!95 &856318314
 Animator:
   serializedVersion: 4
@@ -3299,7 +3296,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: -0.47, z: 0}
+  m_Center: {x: 0, y: -0.22, z: 0}
 --- !u!4 &1160617567268875398
 Transform:
   m_ObjectHideFlags: 0
