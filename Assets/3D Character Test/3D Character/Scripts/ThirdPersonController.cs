@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ public class ThirdPersonController : MonoBehaviour
     private static readonly int JumpEnd = Animator.StringToHash("Jump End");
     private bool _doubleJumped;
     private static readonly int DoubleJump = Animator.StringToHash("Double Jump");
+    private bool _inAir;
     
     private void Start()
     {
@@ -97,9 +99,6 @@ public class ThirdPersonController : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Space) || !isGrounded || _doubleJumped) return;
         running.volume = 0f;
         ApplyJumpForce(jumpForce);
-        _characterAnimator.SetTrigger(Jump);
-        isGrounded = false;
-        _characterAnimator.ResetTrigger(JumpEnd);
     }
 
     private void DoubleJumping()
@@ -114,6 +113,13 @@ public class ThirdPersonController : MonoBehaviour
     private void ApplyJumpForce(float force)
     {
         _rb.velocity = Vector3.up * force;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        _characterAnimator.SetTrigger(Jump);
+        isGrounded = false;
+        _characterAnimator.ResetTrigger(JumpEnd);
     }
 
     private void OnTriggerEnter(Collider other)
