@@ -10,15 +10,15 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private Transform followPoint;
     [SerializeField] private float jumpForce;
     [SerializeField] private float doubleJumpForce;
-    [SerializeField] private Transform foot;
-    [SerializeField] private float footRadius;
     [SerializeField] private bool isGrounded;
+    [SerializeField] private AudioSource running;
     [SerializeField] private AudioSource fall;
+    [SerializeField] private AudioSource doubleJump;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera; 
     [SerializeField] private float noiseIntensity;
     [SerializeField] private float noiseFactor;
-
-    private CinemachineBasicMultiChannelPerlin noise;
+    
+    private CinemachineBasicMultiChannelPerlin _noise;
     private Vector3 _movement;
     private Rigidbody _rb;
     private Animator _characterAnimator;
@@ -31,10 +31,10 @@ public class ThirdPersonController : MonoBehaviour
     private static readonly int JumpEnd = Animator.StringToHash("Jump End");
     private bool _doubleJumped;
     private static readonly int DoubleJump = Animator.StringToHash("Double Jump");
-
+    
     private void Start()
     {
-        noise = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        _noise = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         _rb = GetComponent<Rigidbody>();
         _characterAnimator = GetComponent<Animator>();
 
@@ -85,16 +85,17 @@ public class ThirdPersonController : MonoBehaviour
         vel.x = localMovement.x;
         vel.z = localMovement.z;
         _rb.velocity = vel;
-        
+
         if (!isGrounded)
-            noise.m_AmplitudeGain = noiseIntensity * noiseFactor;
-        
+            _noise.m_AmplitudeGain = noiseIntensity * noiseFactor;
+
         return new Vector2(moveX, moveY);
     }
 
     private void Jumping()
     {
         if (!Input.GetKeyDown(KeyCode.Space) || !isGrounded || _doubleJumped) return;
+        running.volume = 0f;
         ApplyJumpForce(jumpForce);
         _characterAnimator.SetTrigger(Jump);
         isGrounded = false;
@@ -105,6 +106,7 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.Space) || isGrounded || _doubleJumped) return;
         ApplyJumpForce(doubleJumpForce);
+        doubleJump.PlayOneShot(doubleJump.clip);
         _characterAnimator.SetTrigger(DoubleJump);
         _doubleJumped = true;
     }
@@ -114,13 +116,12 @@ public class ThirdPersonController : MonoBehaviour
         _rb.velocity = Vector3.up * force;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         isGrounded = true;
         _doubleJumped = false;
+        running.volume = 1f;
         _characterAnimator.SetTrigger(JumpEnd);
         fall.PlayOneShot(fall.clip);
-        if (Physics.SphereCast(foot.position, footRadius, -transform.up, out RaycastHit hit, 10))
-            isGrounded = true;
     }
 }
