@@ -7,6 +7,6 @@ public class SoundController : MonoBehaviour
 
     private void OnEnable()
     {
-        audioSource.Play();
+        audioSource.PlayOneShot(audioSource.clip);
     }
 }

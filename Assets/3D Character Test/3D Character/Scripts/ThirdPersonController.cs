@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 public class ThirdPersonController : MonoBehaviour
@@ -13,7 +14,11 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private float footRadius;
     [SerializeField] private bool isGrounded;
     [SerializeField] private AudioSource fall;
-    
+    [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera; 
+    [SerializeField] private float noiseIntensity;
+    [SerializeField] private float noiseFactor;
+
+    private CinemachineBasicMultiChannelPerlin noise;
     private Vector3 _movement;
     private Rigidbody _rb;
     private Animator _characterAnimator;
@@ -29,6 +34,7 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Start()
     {
+        noise = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         _rb = GetComponent<Rigidbody>();
         _characterAnimator = GetComponent<Animator>();
 
@@ -80,6 +86,9 @@ public class ThirdPersonController : MonoBehaviour
         vel.z = localMovement.z;
         _rb.velocity = vel;
         
+        if (!isGrounded)
+            noise.m_AmplitudeGain = noiseIntensity * noiseFactor;
+        
         return new Vector2(moveX, moveY);
     }
 
@@ -110,7 +119,7 @@ public class ThirdPersonController : MonoBehaviour
         isGrounded = true;
         _doubleJumped = false;
         _characterAnimator.SetTrigger(JumpEnd);
-        fall.Play();
+        fall.PlayOneShot(fall.clip);
         if (Physics.SphereCast(foot.position, footRadius, -transform.up, out RaycastHit hit, 10))
             isGrounded = true;
     }
