@@ -15,6 +15,7 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private AudioSource running;
     [SerializeField] private AudioSource fall;
     [SerializeField] private AudioSource doubleJump;
+    [SerializeField] private bool doubleJumped;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera; 
     [SerializeField] private float noiseIntensity;
     [SerializeField] private float noiseFactor;
@@ -30,7 +31,6 @@ public class ThirdPersonController : MonoBehaviour
     private static readonly int Jump = Animator.StringToHash("Jump");
     private float _performJump;
     private static readonly int JumpEnd = Animator.StringToHash("Jump End");
-    private bool _doubleJumped;
     private static readonly int DoubleJump = Animator.StringToHash("Double Jump");
     private bool _inAir;
     
@@ -78,8 +78,8 @@ public class ThirdPersonController : MonoBehaviour
         else
             constraint.localRotation = Quaternion.identity;
         
-        DoubleJumping();
         Jumping();
+        DoubleJumping();
         
         _movement = new Vector3(moveX, 0f, moveY);
         Vector3 localMovement = transform.TransformDirection(_movement) * speed;
@@ -96,18 +96,17 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Jumping()
     {
-        if (!Input.GetKeyDown(KeyCode.Space) || !isGrounded || _doubleJumped) return;
+        if (!Input.GetKeyDown(KeyCode.Space) || !isGrounded || doubleJumped) return;
         running.volume = 0f;
         ApplyJumpForce(jumpForce);
     }
 
     private void DoubleJumping()
     {
-        if (!Input.GetKeyDown(KeyCode.Space) || isGrounded || _doubleJumped) return;
+        if (!Input.GetKeyDown(KeyCode.Space) || isGrounded || doubleJumped) return;
         ApplyJumpForce(doubleJumpForce);
         doubleJump.PlayOneShot(doubleJump.clip);
         _characterAnimator.SetTrigger(DoubleJump);
-        _doubleJumped = true;
     }
 
     private void ApplyJumpForce(float force)
@@ -124,10 +123,9 @@ public class ThirdPersonController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        isGrounded = true;
-        _doubleJumped = false;
         running.volume = 1f;
         _characterAnimator.SetTrigger(JumpEnd);
         fall.PlayOneShot(fall.clip);
+        isGrounded = true;
     }
 }
