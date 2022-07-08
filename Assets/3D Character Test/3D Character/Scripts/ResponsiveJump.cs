@@ -14,14 +14,9 @@ public class ResponsiveJump : MonoBehaviour
 
      private void Update()
      {
-          switch (_rb.velocity.y)
-          {
-               case < 0f:
-                    _rb.velocity += Vector3.up * (Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
-                    break;
-               case > 0f when !InputsController.jumping:
-                    _rb.velocity += Vector3.up * (Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime);
-                    break;
-          }
+          if (_rb.velocity.y < 0f)
+               _rb.velocity += Vector3.up * (Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime);
+          else if (_rb.velocity.y > 0f && !InputsController.jumping)
+               _rb.velocity += Vector3.up * (Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime);
      }
 }
