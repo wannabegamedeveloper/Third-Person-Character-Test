@@ -73,8 +73,6 @@ public class ThirdPersonController : MonoBehaviour
 
             mouseY = Mathf.Clamp(mouseY, -3f, 3f);
             
-            print(mouseY);
-            
             constraint.localRotation =
                 Quaternion.Lerp(constraint.localRotation, Quaternion.Euler(0f, 0f, mouseY * -bendAmount),
                     3f * Time.deltaTime);

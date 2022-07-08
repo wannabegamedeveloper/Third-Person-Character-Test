@@ -16,7 +16,7 @@ public class ResponsiveJump : MonoBehaviour
      {
           if (_rb.velocity.y < 0f)
                _rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-          else if (_rb.velocity.y > 0f && !Input.GetKeyDown(KeyCode.Space))
+          else if (_rb.velocity.y > 0f && !InputsController.jumping)
                _rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
      }
 }

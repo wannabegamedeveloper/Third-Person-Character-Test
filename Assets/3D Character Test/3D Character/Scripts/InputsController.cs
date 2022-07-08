@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -6,7 +5,8 @@ using UnityEngine.InputSystem;
 public class InputsController : MonoBehaviour
 {
     public static UnityEvent jumpAction = new UnityEvent();
-
+    public static bool jumping;
+    
     private static SmolCharacter _smolCharacter;
 
     private void Awake()
@@ -17,6 +17,8 @@ public class InputsController : MonoBehaviour
     private void Start()
     {
         _smolCharacter.Player.Jump.performed += Jump;
+        _smolCharacter.Player.Jump.started += Jumping;
+        _smolCharacter.Player.Jump.canceled += JumpEnd;
     }
 
     private void OnEnable()
@@ -42,8 +44,18 @@ public class InputsController : MonoBehaviour
         return mouse;
     }
 
-    private void Jump(InputAction.CallbackContext obj)
+    private static void Jump(InputAction.CallbackContext obj)
     {
         jumpAction.Invoke();
+    }
+
+    private static void Jumping(InputAction.CallbackContext obj)
+    {
+        jumping = true;
+    }
+    
+    private static void JumpEnd(InputAction.CallbackContext obj)
+    {
+        jumping = false;
     }
 }
