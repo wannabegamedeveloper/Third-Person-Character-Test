@@ -10,10 +10,12 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private Transform followPoint;
     [SerializeField] private float jumpForce;
     [SerializeField] private float doubleJumpForce;
+    [SerializeField] private float bashForce;
     [SerializeField] private bool isGrounded;
     [SerializeField] private AudioSource running;
     [SerializeField] private AudioSource fall;
     [SerializeField] private AudioSource doubleJump;
+    [SerializeField] private AudioSource fallBashSFX;
     [SerializeField] private bool doubleJumped;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera; 
     [SerializeField] private float noiseIntensity;
@@ -102,13 +104,13 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (!isGrounded || doubleJumped) return;
         running.volume = 0f;
-        ApplyJumpForce(jumpForce);
+        ApplyVerticalForce(jumpForce);
     }
 
     private void DoubleJumping()
     {
         if (isGrounded || doubleJumped) return;
-        ApplyJumpForce(doubleJumpForce);
+        ApplyVerticalForce(doubleJumpForce);
         doubleJump.PlayOneShot(doubleJump.clip);
         _characterAnimator.SetTrigger(DoubleJump);
     }
@@ -117,11 +119,8 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (isGrounded || !doubleJumped) return;
         _characterAnimator.SetTrigger(Bash);
-    }
-
-    private void ApplyJumpForce(float force)
-    {
-        _rb.velocity = Vector3.up * force;
+        ApplyVerticalForce(-bashForce);
+        fallBashSFX.PlayOneShot(fallBashSFX.clip);
     }
 
     private void OnTriggerExit(Collider other)
@@ -137,5 +136,10 @@ public class ThirdPersonController : MonoBehaviour
         _characterAnimator.SetTrigger(JumpEnd);
         fall.PlayOneShot(fall.clip);
         isGrounded = true;
+    }
+
+    private void ApplyVerticalForce(float force)
+    {
+        _rb.velocity = Vector3.up * force;
     }
 }
