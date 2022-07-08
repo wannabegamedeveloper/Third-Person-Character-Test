@@ -33,6 +33,7 @@ public class ThirdPersonController : MonoBehaviour
     private static readonly int JumpEnd = Animator.StringToHash("Jump End");
     private static readonly int DoubleJump = Animator.StringToHash("Double Jump");
     private bool _inAir;
+    private static readonly int Bash = Animator.StringToHash("Fall Bash");
 
     private void Start()
     {
@@ -45,6 +46,7 @@ public class ThirdPersonController : MonoBehaviour
         
         InputsController.jumpAction.AddListener(Jumping);
         InputsController.jumpAction.AddListener(DoubleJumping);
+        InputsController.jumpAction.AddListener(FallBash);
     }
 
     private void Update()
@@ -109,6 +111,12 @@ public class ThirdPersonController : MonoBehaviour
         ApplyJumpForce(doubleJumpForce);
         doubleJump.PlayOneShot(doubleJump.clip);
         _characterAnimator.SetTrigger(DoubleJump);
+    }
+
+    private void FallBash()
+    {
+        if (isGrounded || !doubleJumped) return;
+        _characterAnimator.SetTrigger(Bash);
     }
 
     private void ApplyJumpForce(float force)
