@@ -19,6 +19,7 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera; 
     [SerializeField] private float noiseIntensity;
     [SerializeField] private float noiseFactor;
+    [SerializeField] private float fov;
     
     private CinemachineBasicMultiChannelPerlin _noise;
     private Vector3 _movement;
@@ -89,7 +90,10 @@ public class ThirdPersonController : MonoBehaviour
         _rb.velocity = vel;
 
         if (!isGrounded)
+        {
             _noise.m_AmplitudeGain = noiseIntensity * noiseFactor;
+            cinemachineVirtualCamera.m_Lens.FieldOfView = fov;
+        }
 
         return new Vector2(moveX, moveY);
     }
