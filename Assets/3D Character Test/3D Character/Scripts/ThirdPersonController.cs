@@ -1,4 +1,3 @@
-using System;
 using Cinemachine;
 using UnityEngine;
 
@@ -34,22 +33,6 @@ public class ThirdPersonController : MonoBehaviour
     private static readonly int JumpEnd = Animator.StringToHash("Jump End");
     private static readonly int DoubleJump = Animator.StringToHash("Double Jump");
     private bool _inAir;
-    private SmolCharacter _smolCharacter;
-
-    private void Awake()
-    {
-        _smolCharacter = new SmolCharacter();
-    }
-
-    private void OnEnable()
-    {
-        _smolCharacter.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _smolCharacter.Disable();
-    }
 
     private void Start()
     {
@@ -77,15 +60,17 @@ public class ThirdPersonController : MonoBehaviour
 
     private Vector2 Movement()
     {
-        Vector2 move = _smolCharacter.Player.Movement.ReadValue<Vector2>();
+        Vector2 move = InputsController.Movement();
 
         if (Mathf.Abs(move.x) > 0f || Mathf.Abs(move.y) > 0f)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, followPoint.localRotation, 10f * Time.deltaTime);
             
-            float mouseY = _smolCharacter.Player.MouseX.ReadValue<float>();
+            float mouseY = InputsController.Mouse().x;
+
+            mouseY = Mathf.Clamp(mouseY, -3f, 3f);
             
-            if (mouseY > 3f) return new Vector2(move.x, move.y);
+            print(mouseY);
             
             constraint.localRotation =
                 Quaternion.Lerp(constraint.localRotation, Quaternion.Euler(0f, 0f, mouseY * -bendAmount),
