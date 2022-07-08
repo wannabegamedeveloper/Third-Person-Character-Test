@@ -42,6 +42,9 @@ public class ThirdPersonController : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        
+        InputsController.jumpAction.AddListener(Jumping);
+        InputsController.jumpAction.AddListener(DoubleJumping);
     }
 
     private void Update()
@@ -79,9 +82,6 @@ public class ThirdPersonController : MonoBehaviour
         else
             constraint.localRotation = Quaternion.identity;
         
-        //Jumping();
-        //DoubleJumping();
-        
         _movement = new Vector3(move.x, 0f, move.y);
         Vector3 localMovement = transform.TransformDirection(_movement) * speed;
         Vector3 vel = _rb.velocity;
@@ -100,14 +100,14 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Jumping()
     {
-        if (!Input.GetKeyDown(KeyCode.Space) || !isGrounded || doubleJumped) return;
+        if (!isGrounded || doubleJumped) return;
         running.volume = 0f;
         ApplyJumpForce(jumpForce);
     }
 
     private void DoubleJumping()
     {
-        if (!Input.GetKeyDown(KeyCode.Space) || isGrounded || doubleJumped) return;
+        if (isGrounded || doubleJumped) return;
         ApplyJumpForce(doubleJumpForce);
         doubleJump.PlayOneShot(doubleJump.clip);
         _characterAnimator.SetTrigger(DoubleJump);

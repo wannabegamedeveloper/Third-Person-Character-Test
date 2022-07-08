@@ -1,12 +1,22 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class InputsController : MonoBehaviour
 {
+    public static UnityEvent jumpAction = new UnityEvent();
+
     private static SmolCharacter _smolCharacter;
 
     private void Awake()
     {
         _smolCharacter = new SmolCharacter();
+    }
+
+    private void Start()
+    {
+        _smolCharacter.Player.Jump.performed += Jump;
     }
 
     private void OnEnable()
@@ -30,5 +40,10 @@ public class InputsController : MonoBehaviour
             _smolCharacter.Player.MouseY.ReadValue<float>());
         
         return mouse;
+    }
+
+    private void Jump(InputAction.CallbackContext obj)
+    {
+        jumpAction.Invoke();
     }
 }
