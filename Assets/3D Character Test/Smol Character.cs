@@ -37,13 +37,22 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Cam Rotation"",
-                    ""type"": ""Value"",
+                    ""name"": ""Mouse X"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""859fa0b2-325c-4ade-a9f3-be5c36556e9a"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Mouse Y"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""a7f9a6e4-796d-4043-a4fc-c0bce24c1254"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -105,11 +114,22 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""1140b4c7-b43e-41db-b032-0d1cc178aa57"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Mouse>/delta/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Cam Rotation"",
+                    ""action"": ""Mouse X"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""510049d7-d971-4c19-b9e0-6508c600f064"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse Y"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -121,7 +141,8 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
-        m_Player_CamRotation = m_Player.FindAction("Cam Rotation", throwIfNotFound: true);
+        m_Player_MouseX = m_Player.FindAction("Mouse X", throwIfNotFound: true);
+        m_Player_MouseY = m_Player.FindAction("Mouse Y", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,13 +203,15 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Movement;
-    private readonly InputAction m_Player_CamRotation;
+    private readonly InputAction m_Player_MouseX;
+    private readonly InputAction m_Player_MouseY;
     public struct PlayerActions
     {
         private @SmolCharacter m_Wrapper;
         public PlayerActions(@SmolCharacter wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
-        public InputAction @CamRotation => m_Wrapper.m_Player_CamRotation;
+        public InputAction @MouseX => m_Wrapper.m_Player_MouseX;
+        public InputAction @MouseY => m_Wrapper.m_Player_MouseY;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -201,9 +224,12 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                @CamRotation.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamRotation;
-                @CamRotation.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamRotation;
-                @CamRotation.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCamRotation;
+                @MouseX.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseX;
+                @MouseX.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseX;
+                @MouseX.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseX;
+                @MouseY.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseY;
+                @MouseY.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseY;
+                @MouseY.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMouseY;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -211,9 +237,12 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @CamRotation.started += instance.OnCamRotation;
-                @CamRotation.performed += instance.OnCamRotation;
-                @CamRotation.canceled += instance.OnCamRotation;
+                @MouseX.started += instance.OnMouseX;
+                @MouseX.performed += instance.OnMouseX;
+                @MouseX.canceled += instance.OnMouseX;
+                @MouseY.started += instance.OnMouseY;
+                @MouseY.performed += instance.OnMouseY;
+                @MouseY.canceled += instance.OnMouseY;
             }
         }
     }
@@ -221,6 +250,7 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnCamRotation(InputAction.CallbackContext context);
+        void OnMouseX(InputAction.CallbackContext context);
+        void OnMouseY(InputAction.CallbackContext context);
     }
 }

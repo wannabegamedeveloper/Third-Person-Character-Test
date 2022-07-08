@@ -83,7 +83,7 @@ public class ThirdPersonController : MonoBehaviour
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, followPoint.localRotation, 10f * Time.deltaTime);
             
-            float mouseY = _smolCharacter.Player.CamRotation.ReadValue<Vector2>().x;
+            float mouseY = _smolCharacter.Player.MouseX.ReadValue<float>();
             
             if (mouseY > 3f) return new Vector2(move.x, move.y);
             

@@ -15,13 +15,22 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Cam Rotation",
-                    "type": "Value",
+                    "name": "Mouse X",
+                    "type": "PassThrough",
                     "id": "859fa0b2-325c-4ade-a9f3-be5c36556e9a",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Y",
+                    "type": "PassThrough",
+                    "id": "a7f9a6e4-796d-4043-a4fc-c0bce24c1254",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -83,11 +92,22 @@
                 {
                     "name": "",
                     "id": "1140b4c7-b43e-41db-b032-0d1cc178aa57",
-                    "path": "<Mouse>/delta",
+                    "path": "<Mouse>/delta/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Cam Rotation",
+                    "action": "Mouse X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "510049d7-d971-4c19-b9e0-6508c600f064",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Y",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

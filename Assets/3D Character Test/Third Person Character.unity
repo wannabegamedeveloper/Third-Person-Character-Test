@@ -499,6 +499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d899c358dc0afa043820633021ab0d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xSensitivity: 1
+  ySensitivity: 1
   point: {fileID: 1292446114}
   player: {fileID: 543450652877457033}
   minCamAngle: -0.4
