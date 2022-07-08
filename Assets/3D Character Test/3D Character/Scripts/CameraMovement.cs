@@ -27,5 +27,9 @@ public class CameraMovement : MonoBehaviour
 
         point.Rotate(new Vector3(-mouseX, 0f, 0f));
         transform.Rotate(new Vector3(0f, mouseY, 0f));
+
+        var rot = point.localRotation;
+        rot.x = Mathf.Clamp(rot.x, minCamAngle, maxCamAngle);
+        point.localRotation = rot;
     }
 }
