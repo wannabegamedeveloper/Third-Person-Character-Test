@@ -9,9 +9,12 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float maxCamAngle;
     
     private Transform _transform;
+
+    private SmolCharacter _smolCharacter;
     
     private void Start()
     {
+        _smolCharacter = new SmolCharacter();
         _transform = player;
     }
 
@@ -22,8 +25,8 @@ public class CameraMovement : MonoBehaviour
 
         pointPosition.position = Vector3.Lerp(pointPosition.position, position, 100f * Time.deltaTime);
 
-        float mouseX = Input.GetAxis("Mouse Y");
-        float mouseY = Input.GetAxis("Mouse X");
+        float mouseX = _smolCharacter.Player.CamRotation.ReadValue<Vector2>().y;
+        float mouseY = _smolCharacter.Player.CamRotation.ReadValue<Vector2>().x;
 
         point.Rotate(new Vector3(-mouseX, 0f, 0f));
         transform.Rotate(new Vector3(0f, mouseY, 0f));

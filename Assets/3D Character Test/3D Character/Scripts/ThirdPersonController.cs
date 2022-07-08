@@ -34,7 +34,23 @@ public class ThirdPersonController : MonoBehaviour
     private static readonly int JumpEnd = Animator.StringToHash("Jump End");
     private static readonly int DoubleJump = Animator.StringToHash("Double Jump");
     private bool _inAir;
-    
+    private SmolCharacter _smolCharacter;
+
+    private void Awake()
+    {
+        _smolCharacter = new SmolCharacter();
+    }
+
+    private void OnEnable()
+    {
+        _smolCharacter.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _smolCharacter.Disable();
+    }
+
     private void Start()
     {
         _noise = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -61,16 +77,15 @@ public class ThirdPersonController : MonoBehaviour
 
     private Vector2 Movement()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-            
-        if (Mathf.Abs(moveX) > 0f || Mathf.Abs(moveY) > 0f)
+        Vector2 move = _smolCharacter.Player.Movement.ReadValue<Vector2>();
+
+        if (Mathf.Abs(move.x) > 0f || Mathf.Abs(move.y) > 0f)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, followPoint.localRotation, 10f * Time.deltaTime);
             
-            float mouseY = Input.GetAxis("Mouse X");
+            float mouseY = _smolCharacter.Player.CamRotation.ReadValue<Vector2>().x;
             
-            if (mouseY > 3f) return new Vector2(moveX, moveY);
+            if (mouseY > 3f) return new Vector2(move.x, move.y);
             
             constraint.localRotation =
                 Quaternion.Lerp(constraint.localRotation, Quaternion.Euler(0f, 0f, mouseY * -bendAmount),
@@ -79,10 +94,10 @@ public class ThirdPersonController : MonoBehaviour
         else
             constraint.localRotation = Quaternion.identity;
         
-        Jumping();
-        DoubleJumping();
+        //Jumping();
+        //DoubleJumping();
         
-        _movement = new Vector3(moveX, 0f, moveY);
+        _movement = new Vector3(move.x, 0f, move.y);
         Vector3 localMovement = transform.TransformDirection(_movement) * speed;
         Vector3 vel = _rb.velocity;
         vel.x = localMovement.x;
@@ -95,7 +110,7 @@ public class ThirdPersonController : MonoBehaviour
             cinemachineVirtualCamera.m_Lens.FieldOfView = fov;
         }
 
-        return new Vector2(moveX, moveY);
+        return new Vector2(move.x, move.y);
     }
 
     private void Jumping()
