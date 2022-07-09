@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ThirdPersonController : MonoBehaviour
 {
+    [SerializeField] private bool stopMovement;
     [SerializeField] private float speed;
     [SerializeField] private float animationTransitionTime;
     [SerializeField] private Transform constraint;
@@ -53,7 +54,8 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Update()
     {
-        Animate(Movement());
+        if (!stopMovement)
+            Animate(Movement());
     }
 
     private void Animate(Vector2 axis)
