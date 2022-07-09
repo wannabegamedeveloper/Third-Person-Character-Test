@@ -54,6 +54,9 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Update()
     {
+        _noise.m_AmplitudeGain = noiseIntensity * noiseFactor;
+        cinemachineVirtualCamera.m_Lens.FieldOfView = fov;
+        
         if (!stopMovement)
             Animate(Movement());
     }
@@ -93,22 +96,19 @@ public class ThirdPersonController : MonoBehaviour
         vel.z = localMovement.z;
         _rb.velocity = vel;
 
-        _noise.m_AmplitudeGain = noiseIntensity * noiseFactor;
-        cinemachineVirtualCamera.m_Lens.FieldOfView = fov;
-
         return new Vector2(move.x, move.y);
     }
 
     private void Jumping()
     {
-        if (!isGrounded || doubleJumped) return;
+        if (!isGrounded || doubleJumped || stopMovement) return;
         running.volume = 0f;
         ApplyVerticalForce(jumpForce);
     }
 
     private void DoubleJumping()
     {
-        if (isGrounded || doubleJumped) return;
+        if (isGrounded || doubleJumped || stopMovement) return;
         ApplyVerticalForce(doubleJumpForce);
         doubleJump.PlayOneShot(doubleJump.clip);
         _characterAnimator.SetTrigger(DoubleJump);
