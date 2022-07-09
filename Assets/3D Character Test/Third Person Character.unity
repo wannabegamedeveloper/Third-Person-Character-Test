@@ -8401,8 +8401,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7feb3ec8868e8c4ea19604bba8445b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallMultiplier: 2
-  lowJumpMultiplier: 3
+  fallMultiplier: 4
+  lowJumpMultiplier: 4
+  highJumpMultiplier: 4
 --- !u!65 &919132148936956984
 BoxCollider:
   m_ObjectHideFlags: 0
