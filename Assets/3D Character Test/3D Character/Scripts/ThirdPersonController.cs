@@ -24,6 +24,7 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private float noiseIntensity;
     [SerializeField] private float noiseFactor;
     [SerializeField] private float fov;
+    [SerializeField] private ParticleSystem smoke;
     
     private CinemachineBasicMultiChannelPerlin _noise;
     private Vector3 _movement;
@@ -139,7 +140,11 @@ public class ThirdPersonController : MonoBehaviour
         if (!bashing)
             fall.PlayOneShot(fall.clip);
         else
+        {
             fallBashEndSFX.PlayOneShot(fallBashEndSFX.clip);
+            smoke.Play();
+        }
+
         isGrounded = true;
     }
 
