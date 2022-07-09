@@ -46,9 +46,9 @@ public class ThirdPersonController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         
-        InputsController.jumpAction.AddListener(Jumping);
-        InputsController.jumpAction.AddListener(DoubleJumping);
-        InputsController.jumpAction.AddListener(FallBash);
+        InputsController.JumpAction.AddListener(Jumping);
+        InputsController.JumpAction.AddListener(DoubleJumping);
+        InputsController.BashAction.AddListener(FallBash);
     }
 
     private void Update()

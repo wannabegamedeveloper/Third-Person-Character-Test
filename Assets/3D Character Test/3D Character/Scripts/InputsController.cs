@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class InputsController : MonoBehaviour
 {
-    public static UnityEvent jumpAction = new UnityEvent();
+    public static readonly UnityEvent JumpAction = new UnityEvent();
+    public static readonly UnityEvent BashAction = new UnityEvent();
     public static bool jumping;
     
     private static SmolCharacter _smolCharacter;
@@ -19,6 +20,8 @@ public class InputsController : MonoBehaviour
         _smolCharacter.Player.Jump.performed += Jump;
         _smolCharacter.Player.Jump.started += Jumping;
         _smolCharacter.Player.Jump.canceled += JumpEnd;
+
+        _smolCharacter.Player.Bash.performed += Bash;
     }
 
     private void OnEnable()
@@ -46,7 +49,7 @@ public class InputsController : MonoBehaviour
 
     private static void Jump(InputAction.CallbackContext obj)
     {
-        jumpAction.Invoke();
+        JumpAction.Invoke();
     }
 
     private static void Jumping(InputAction.CallbackContext obj)
@@ -57,5 +60,10 @@ public class InputsController : MonoBehaviour
     private static void JumpEnd(InputAction.CallbackContext obj)
     {
         jumping = false;
+    }
+
+    private void Bash(InputAction.CallbackContext obj)
+    {
+        BashAction.Invoke();
     }
 }

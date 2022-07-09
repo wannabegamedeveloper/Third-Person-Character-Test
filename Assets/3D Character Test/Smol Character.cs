@@ -62,6 +62,15 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Bash"",
+                    ""type"": ""Button"",
+                    ""id"": ""e323f1ee-cfdb-46b2-b0b6-de28ed92f1a1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -240,6 +249,28 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7242c12-a536-470f-9278-a31b9ef68fcd"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b2b0e2e5-e0fd-4342-8b7e-f364defcc0ba"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Bash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -252,6 +283,7 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
         m_Player_MouseX = m_Player.FindAction("Mouse X", throwIfNotFound: true);
         m_Player_MouseY = m_Player.FindAction("Mouse Y", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_Bash = m_Player.FindAction("Bash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +347,7 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MouseX;
     private readonly InputAction m_Player_MouseY;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_Bash;
     public struct PlayerActions
     {
         private @SmolCharacter m_Wrapper;
@@ -323,6 +356,7 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
         public InputAction @MouseX => m_Wrapper.m_Player_MouseX;
         public InputAction @MouseY => m_Wrapper.m_Player_MouseY;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @Bash => m_Wrapper.m_Player_Bash;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -344,6 +378,9 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @Bash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBash;
+                @Bash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBash;
+                @Bash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBash;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -360,6 +397,9 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @Bash.started += instance.OnBash;
+                @Bash.performed += instance.OnBash;
+                @Bash.canceled += instance.OnBash;
             }
         }
     }
@@ -370,5 +410,6 @@ public partial class @SmolCharacter : IInputActionCollection2, IDisposable
         void OnMouseX(InputAction.CallbackContext context);
         void OnMouseY(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnBash(InputAction.CallbackContext context);
     }
 }
