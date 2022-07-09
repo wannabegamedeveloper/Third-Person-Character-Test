@@ -74,18 +74,18 @@ public class ThirdPersonController : MonoBehaviour
         if (Mathf.Abs(move.x) > 0f || Mathf.Abs(move.y) > 0f)
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, followPoint.localRotation, 10f * Time.deltaTime);
-            
+
             float mouseY = InputsController.Mouse().x;
 
             mouseY = Mathf.Clamp(mouseY, -3f, 3f);
-            
+
             constraint.localRotation =
                 Quaternion.Lerp(constraint.localRotation, Quaternion.Euler(0f, 0f, mouseY * -bendAmount),
                     3f * Time.deltaTime);
         }
         else
             constraint.localRotation = Quaternion.identity;
-        
+
         _movement = new Vector3(move.x, 0f, move.y);
         Vector3 localMovement = transform.TransformDirection(_movement) * speed;
         Vector3 vel = _rb.velocity;
@@ -93,11 +93,8 @@ public class ThirdPersonController : MonoBehaviour
         vel.z = localMovement.z;
         _rb.velocity = vel;
 
-        if (!isGrounded)
-        {
-            _noise.m_AmplitudeGain = noiseIntensity * noiseFactor;
-            cinemachineVirtualCamera.m_Lens.FieldOfView = fov;
-        }
+        _noise.m_AmplitudeGain = noiseIntensity * noiseFactor;
+        cinemachineVirtualCamera.m_Lens.FieldOfView = fov;
 
         return new Vector2(move.x, move.y);
     }
@@ -136,6 +133,7 @@ public class ThirdPersonController : MonoBehaviour
     {
         running.volume = 1f;
         _characterAnimator.SetTrigger(JumpEnd);
+        _characterAnimator.ResetTrigger(Bash);
         fall.PlayOneShot(fall.clip);
         isGrounded = true;
     }
