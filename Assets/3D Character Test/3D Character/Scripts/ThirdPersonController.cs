@@ -4,6 +4,7 @@ using UnityEngine;
 public class ThirdPersonController : MonoBehaviour
 {
     [SerializeField] private bool stopMovement;
+    [SerializeField] private bool bashing;
     [SerializeField] private float speed;
     [SerializeField] private float animationTransitionTime;
     [SerializeField] private Transform constraint;
@@ -17,6 +18,7 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private AudioSource fall;
     [SerializeField] private AudioSource doubleJump;
     [SerializeField] private AudioSource fallBashSFX;
+    [SerializeField] private AudioSource fallBashEndSFX;
     [SerializeField] private bool doubleJumped;
     [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera; 
     [SerializeField] private float noiseIntensity;
@@ -134,7 +136,10 @@ public class ThirdPersonController : MonoBehaviour
         running.volume = 1f;
         _characterAnimator.SetTrigger(JumpEnd);
         _characterAnimator.ResetTrigger(Bash);
-        fall.PlayOneShot(fall.clip);
+        if (!bashing)
+            fall.PlayOneShot(fall.clip);
+        else
+            fallBashEndSFX.PlayOneShot(fallBashEndSFX.clip);
         isGrounded = true;
     }
 
